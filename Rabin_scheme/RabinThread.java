@@ -26,6 +26,7 @@ public class RabinThread extends Thread
 		this.flag=flag;
 		this.threadID=threadID;
 	}
+	
 	@Override
 	public void run() 
 	{
@@ -37,12 +38,14 @@ public class RabinThread extends Thread
 				&& !flag.get(2)
 				&& !flag.get(3))
 		{
-			b = b.add(BigInteger.ONE)
-					.add(BigInteger.ONE)
-					.add(BigInteger.ONE)
-					.add(BigInteger.ONE);
-			result2 = a.multiply(p).add(b.multiply(q))
-				.mod(n);
+			b = b.add(BigInteger.ONE.add
+					(BigInteger.ONE.add
+					(BigInteger.ONE.add
+					(BigInteger.ONE))));
+			
+			result2 = a.multiply(p)
+					.add(b.multiply(q));
+			System.out.println(b);
 			
 		}
 		flag.set(threadID, true);
