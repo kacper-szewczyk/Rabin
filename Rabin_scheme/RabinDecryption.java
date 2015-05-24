@@ -50,31 +50,34 @@ public class RabinDecryption
 		}
 		Long q = a-1;
 		Long s = 0l;
+		BigInteger q2 = new BigInteger(q.toString());
+		BigInteger number2 = BigInteger.ONE.add(BigInteger.ONE);
 		while(true)
 		{
-			if(q%2==0)
+			if(q2.gcd(number2).equals(number2))
 			{
-				q/=2;
+				q2=q2.divide(number2);
 				s++;
 			}
 			else
 			{
+				if(s==1)
+				{
+					return (a+1)/4;
+				}
+				q = q2.longValue();
 				break;
 			}
 		}
-		Long z = findNonQR();
+		Long z = findNonQR(a);
 		Long c = (long) Math.pow(z,q) % a;
 		Long r = (long) Math.pow(cipherText, (q+1)/2) % a;
 		Long t = (long) Math.pow(cipherText, q) % a;
 		Long m = s;
 		Long index = 0l;
 		Long b;
-		while(true)
+		if(t%a != 1)
 		{
-			if(t%a == 1)
-			{
-				break;
-			}
 			for(Long i=1l; i<m; i++)
 			{
 				if(Math.pow(t,Math.pow(2, i))%a == 1)
@@ -83,23 +86,34 @@ public class RabinDecryption
 					i = m;
 				}
 			}
-			
-			b = (long) (Math.pow(c,Math.pow(2, m-index-1))%a);
-			r = (r*b)%a;
-			t = (t*b*b)%a;
-			c = (b*b)%a;
+			b = (long) Math.abs(Math.pow(c,Math.pow(2, m-index-1))%a);
+			r = Math.abs((r*b)%a);
+			t = Math.abs((t*b*b)%a);
+			c = Math.abs((b*b)%a);
 			m = index;
-			System.out.println(" b " + b + " r " + r + " t " + t + " c " + c);
+			return p-r;
 		}
-		return p-r;
+		else
+			return r;
 	}
 
-	private Long findNonQR() 
+	private Long findNonQR(Long a) 
 	{
+		ArrayList<Boolean> rests = new ArrayList<>();
+		int resultOfPowering = 0;
+		for(int i=0;i<a;i++)
+		{
+			rests.add(false);
+		}
+		for(int i=0;i<a;i++)
+		{
+			resultOfPowering = (int) (Math.pow(i, 2) % a);
+			rests.set(resultOfPowering, true);
+		}
 		Random randomNumber = new Random();
 		Long nonQR = randomNumber.nextLong()%100;
 		nonQR = Math.abs(nonQR);
-		while(nonQR%4!=3 && nonQR%4!=2)
+		while(!rests.get((int) (nonQR%a)))
 		{
 			nonQR++;
 		}
