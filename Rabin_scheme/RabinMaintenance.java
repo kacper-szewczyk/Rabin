@@ -13,6 +13,7 @@ public class RabinMaintenance
 		Random randomMessage=new Random();
 		Long message=randomMessage.nextLong()%gen.n;
 		message=Math.abs(message);
+		//message = 20l;
 		Long cipherText = enc.encryptMessage(message);	
 		System.out.println("message: "+message);
 		System.out.println("CipherText: "+cipherText);

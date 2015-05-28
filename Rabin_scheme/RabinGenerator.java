@@ -16,10 +16,10 @@ public class RabinGenerator
 		/*findQ();
 		findP();
 		*/
-		p = 82633l; // as an example 
-		q = 101161l; // p=q=1(mod4)
-		p = 5l; // as an example 
-		q = 37l; // p=q=1(mod4)
+		p = 2927l; // as an example 
+		q = 4591l; // p=q=1(mod4)
+		p = 11l; // as an example 
+		q = 7l; // p=q=1(mod4)
 		n=p*q;
 	}
 	private void findQ() 
