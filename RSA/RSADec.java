@@ -1,5 +1,6 @@
 package RSA;
 
+import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Random;
@@ -19,7 +20,7 @@ public class RSADec
 		this.p = p;
 	}
 	
-	public Long decryptMessageStandard(Long cipherText)
+	public Long decryptMessage(Long cipherText)
 	{
 		
 		BigInteger message = BigInteger.ONE;
@@ -30,13 +31,6 @@ public class RSADec
 		}
 		message = message.mod(new BigInteger(n.toString()));
 		return message.longValue();
-	}
-	
-	public Long decryptMessageCTR(Long cipherText)
-	{
-		Long a = 1l;
-		
-		return a;
 	}
 	
 
